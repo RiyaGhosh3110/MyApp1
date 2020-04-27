@@ -131,7 +131,7 @@ public class sign extends AppCompatActivity {
     private Boolean validateUserName(){
         String value=regUsername.getEditText().getText().toString();
 
-        Pattern user= Pattern.compile( "[A-Za-z0-9]+" );
+        String user="[A-Za-z0-9]+";
         //String noWhiteSpace = "\\A\\w{4,20}\\z";
 
         if(value.isEmpty())
@@ -144,16 +144,18 @@ public class sign extends AppCompatActivity {
             regUsername.setError("Username too Long");
             return false;
         }
-        else if (!user.matcher(value).find())
+        else
+            //            if (!user.matcher(value).find())
+        if(!value.matches(user))
         {
             regUsername.setError("Invalid Username, use only letters and digits");
             return false;
         }
-        else if(userExists(value)) {
-            Toast.makeText(sign.this,"USER EXISTS",Toast.LENGTH_LONG).show();
-            regUsername.setError("User exists!");
-            return false;
-        }
+//        else if(userExists(value)) {
+//            Toast.makeText(sign.this,"USER EXISTS",Toast.LENGTH_LONG).show();
+//            regUsername.setError("User exists!");
+//            return false;
+//        }
         else
         {
             regUsername.setError(null); //to empty the error field
@@ -221,47 +223,46 @@ public class sign extends AppCompatActivity {
     {
 
         //Get all the values
-        String name=regName.getEditText().getText().toString();
+
         String username=regUsername.getEditText().getText().toString();
-        String email=regEmail.getEditText().getText().toString();
-        String phone=regPhoneNo.getEditText().getText().toString();
-        String password=regPassword.getEditText().getText().toString();
 
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-//
-//        Query checkUser = reference.orderByChild("username").equalTo(username);
-//        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if(dataSnapshot.exists())
-//                {
-//                    regUsername.setError("User exists!");
-//                    regUsername.requestFocus();
-//                    return;
-//                }
-//                else {
-//                    //progressBar.setVisibility(View.GONE);
-//                    regUsername.setError(null);
-//                    regUsername.setErrorEnabled(false);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
-        if(!validateName() |!validatePassword() | !validatePhoneNo() | !validateEmail() | !validateUserName())
-        {
-            return;
-        }
+        Query checkUser = ref.orderByChild("username").equalTo(username);
+        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    regUsername.setError("User exists!");
+                    regUsername.requestFocus();
+                }
+                else
+                {
+                    if(!validateName() |!validatePassword() | !validatePhoneNo() | !validateEmail() | !validateUserName())
+                    {
+                        return;
+                    }
 
+                    String name=regName.getEditText().getText().toString();
+                    String email=regEmail.getEditText().getText().toString();
+                    String phone=regPhoneNo.getEditText().getText().toString();
+                    String password=regPassword.getEditText().getText().toString();
 
-        UserHelperClass helperClass=new UserHelperClass(name,username,email,phone,password);
-        reference.child(username).setValue(helperClass);
+                    UserHelperClass helperClass=new UserHelperClass(name,username,email,phone,password);
+                    reference.child(username).setValue(helperClass);
 
-        Toast.makeText(getApplicationContext(),"User Successfully Registered", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"User Successfully Registered", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 }
