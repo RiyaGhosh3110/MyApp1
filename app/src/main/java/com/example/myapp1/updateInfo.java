@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,28 +28,66 @@ public class updateInfo extends AppCompatActivity {
 
     DatabaseReference reference,ref;
     TextInputLayout vegetableWeight;
-    TextInputEditText vegetablename;
-    Button submit;
+    TextInputLayout vegetableName;
+    Button submit,back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);  //removes status bar
         setContentView(R.layout.activity_update_info);
         vegetableWeight = findViewById(R.id.veg_weight);
-        vegetablename=findViewById(R.id.veg_name);
+        vegetableName=findViewById(R.id.veg_name);
         submit=findViewById(R.id.submit);
+        back=findViewById(R.id.back);
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
         reference = FirebaseDatabase.getInstance().getReference("users").child(username).child("Master");
 
         submit.setOnClickListener((View V)->{
-            String vegetable_name = vegetablename.getText().toString().trim();
-//            Toast.makeText(getApplicationContext(),vegetable_name,Toast.LENGTH_LONG).show();
+            if(!validateVegetableName() || !validateVegetableWeight() )
+                return;
+
+            String vegetable_name = vegetableName.getEditText().getText().toString().trim();
             reference.child(vegetable_name).setValue(vegetableWeight.getEditText().getText().toString().trim());
-//            Log.i("myMessage", reference.child(vegetable_name).toString());
+
+            Intent intent1 = new Intent( updateInfo.this,viewInfo.class);
+            intent1.putExtra("username", username);
+            startActivity(intent1);
             finish();
 
         });
 
+        back.setOnClickListener((View v)->{
+            Intent intent1 = new Intent( updateInfo.this,viewInfo.class);
+            startActivity(intent1);
+            finish();
+        });
+
+    }
+
+
+    private Boolean validateVegetableName() {
+        String val = vegetableName.getEditText().getText().toString();
+        if (val.isEmpty()) {
+            vegetableName.setError("Field cannot be empty");
+            return false;
+        } else {
+            vegetableName.setError(null);
+            vegetableName.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private Boolean validateVegetableWeight() {
+        String val = vegetableWeight.getEditText().getText().toString();
+        if (val.isEmpty()) {
+            vegetableWeight.setError("Field cannot be empty");
+            return false;
+        } else {
+            vegetableWeight.setError(null);
+            vegetableWeight.setErrorEnabled(false);
+            return true;
+        }
     }
 }

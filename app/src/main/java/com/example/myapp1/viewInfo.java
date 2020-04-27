@@ -33,8 +33,9 @@ public class viewInfo extends AppCompatActivity {
     DatabaseReference reference;
     ListView list;
     FloatingActionButton add;
-//    TextView text;
-//    Button click;
+    Button logout;
+    TextView welcome;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +43,14 @@ public class viewInfo extends AppCompatActivity {
 
         setContentView(R.layout.activity_view_info);
 
-//        text = findViewById(R.id.dummytext);
-//        click = findViewById(R.id.click);
         list = (ListView) findViewById(R.id.listView);
         add=findViewById(R.id.floatingActionButton);
+        logout=findViewById(R.id.logout);
+        welcome=findViewById(R.id.welcome);
+
         Intent intent = getIntent();
         final String username = intent.getStringExtra("username");
+        welcome.setText("Hello "+ username+"\nWelcome Back!");
         reference = FirebaseDatabase.getInstance().getReference("users").child(username).child("Master");
         reference.addValueEventListener(new ValueEventListener() {
             ArrayList<String> keys = new ArrayList<String>();
@@ -69,20 +72,21 @@ public class viewInfo extends AppCompatActivity {
 
             }
         });
-//        click.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(viewInfo.this, updateInfo.class);
-//                intent.putExtra("username", username);
-//                startActivity(intent);
-//            }
-//        });
+
 
         add.setOnClickListener((View V)->{
 
                 Intent intent1 = new Intent(viewInfo.this, updateInfo.class);
                 intent1.putExtra("username", username);
                 startActivity(intent1);
+                finish();
+        });
+
+        logout.setOnClickListener((View V)->{
+
+            Intent intent1 = new Intent(viewInfo.this, login.class);
+            startActivity(intent1);
+            finish();
         });
     }
 

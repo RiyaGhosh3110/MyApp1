@@ -1,5 +1,6 @@
 package com.example.myapp1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,8 +13,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class sign extends AppCompatActivity {
 
@@ -45,6 +53,22 @@ public class sign extends AppCompatActivity {
                 rootNode=FirebaseDatabase.getInstance();
                 reference=rootNode.getReference("users");
 
+//                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+//                ref.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        String value=regUsername.getEditText().getText().toString();
+//                        if (dataSnapshot.child(value).exists()) {
+//                            Toast.makeText(sign.this,"USER EXISTS",Toast.LENGTH_LONG).show();
+//                            regUsername.setError("User already exists!");
+//                            return;
+//                        }
+//                    }
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
 
                 registerUser(v);
             }
@@ -59,6 +83,34 @@ public class sign extends AppCompatActivity {
         });
     }
 
+    private Boolean userExists(String val){
+        final boolean[] check = new boolean[1];
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+        Query checkUser = ref.orderByChild("username").equalTo(val);
+        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    Toast.makeText(sign.this,"USER EXISTS",Toast.LENGTH_LONG).show();
+                    check[0] =false;
+                }
+                else
+                {
+                    Toast.makeText(sign.this,"USER NOT EXISTS",Toast.LENGTH_LONG).show();
+                    check[0]=true;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        Toast.makeText(sign.this,""+check[0],Toast.LENGTH_LONG).show();
+        return check[0];
+    }
 
     private Boolean validateName(){
         String value=regName.getEditText().getText().toString();
@@ -79,8 +131,8 @@ public class sign extends AppCompatActivity {
     private Boolean validateUserName(){
         String value=regUsername.getEditText().getText().toString();
 
-        // String noWhiteSpace="(?=\\S+$)";
-        String noWhiteSpace = "\\A\\w{4,20}\\z";
+        Pattern user= Pattern.compile( "[A-Za-z0-9]+" );
+        //String noWhiteSpace = "\\A\\w{4,20}\\z";
 
         if(value.isEmpty())
         {
@@ -92,9 +144,14 @@ public class sign extends AppCompatActivity {
             regUsername.setError("Username too Long");
             return false;
         }
-        else if (value.matches(noWhiteSpace))
+        else if (!user.matcher(value).find())
         {
-            regUsername.setError("White Spaces are not allowed");
+            regUsername.setError("Invalid Username, use only letters and digits");
+            return false;
+        }
+        else if(userExists(value)) {
+            Toast.makeText(sign.this,"USER EXISTS",Toast.LENGTH_LONG).show();
+            regUsername.setError("User exists!");
             return false;
         }
         else
@@ -163,18 +220,43 @@ public class sign extends AppCompatActivity {
     public void registerUser(View view)
     {
 
-        Validation:
-        if(!validateName() |!validatePassword() | !validatePhoneNo() | !validateEmail() | !validateUserName())
-        {
-            return;
-        }
-
         //Get all the values
         String name=regName.getEditText().getText().toString();
         String username=regUsername.getEditText().getText().toString();
         String email=regEmail.getEditText().getText().toString();
         String phone=regPhoneNo.getEditText().getText().toString();
         String password=regPassword.getEditText().getText().toString();
+
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+//
+//        Query checkUser = reference.orderByChild("username").equalTo(username);
+//        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if(dataSnapshot.exists())
+//                {
+//                    regUsername.setError("User exists!");
+//                    regUsername.requestFocus();
+//                    return;
+//                }
+//                else {
+//                    //progressBar.setVisibility(View.GONE);
+//                    regUsername.setError(null);
+//                    regUsername.setErrorEnabled(false);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        if(!validateName() |!validatePassword() | !validatePhoneNo() | !validateEmail() | !validateUserName())
+        {
+            return;
+        }
+
 
         UserHelperClass helperClass=new UserHelperClass(name,username,email,phone,password);
         reference.child(username).setValue(helperClass);

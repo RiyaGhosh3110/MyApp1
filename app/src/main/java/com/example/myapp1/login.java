@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -60,6 +61,7 @@ public class login extends AppCompatActivity {
 //                ActivityOptions options=ActivityOptions.makeSceneTransitionAnimation(login.this,pairs);
                 startActivity(intent);
 
+
             }
         });
 
@@ -67,6 +69,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginUser(v);
+
             }
         });
 
@@ -113,7 +116,6 @@ public class login extends AppCompatActivity {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
         Query checkUser = reference.orderByChild("username").equalTo(userEnteredUsername);
-
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -141,6 +143,7 @@ public class login extends AppCompatActivity {
 //                        intent.putExtra("phone", phoneNoFromDB);
 //                        intent.putExtra("password", passwordFromDB);
                         startActivity(intent);
+                        finish();
                     }
                     else {
                         //progressBar.setVisibility(View.GONE);

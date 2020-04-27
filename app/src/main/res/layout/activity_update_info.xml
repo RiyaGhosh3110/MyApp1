@@ -5,17 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".updateInfo"
-    android:orientation="vertical"
-    android:paddingTop="50dp">
+    android:orientation="vertical">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/logo_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/veg1"
+            android:transitionName="logo_image"/>
+        <TextView
+            android:id="@+id/fullname_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Vegetable"
+            android:paddingBottom="10dp"
+            android:textSize="24dp"/>
+
+
+    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-
+        android:id="@+id/veg_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/veg_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -31,17 +51,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="Enter Vegetable"/>
+            android:hint="Enter Weight"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/submit"
-        android:layout_marginTop="50dp"
-
-        android:layout_width="300dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Submit" />
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:paddingTop="70dp">
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="50dp"
+            android:background="#000"
+            android:padding="10dp"
+            android:text="Back"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:background="#000"
+            android:text="Submit"
+            android:textColor="#fff" />
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

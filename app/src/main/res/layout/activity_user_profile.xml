@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="1dp"
-        android:background="@color/colorSplash"
+
         android:orientation="vertical"
         android:padding="10dp"
 
@@ -21,12 +21,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/logo_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/veg1"
+            android:transitionName="logo_image"/>
         <TextView
             android:id="@+id/fullname_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Set New Password"
-            android:layout_marginTop="40dp"
+
             android:textSize="24dp"/>
 
 <!--        <TextView-->
@@ -45,29 +51,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="100dp">
-
-<!--         <com.google.android.material.textfield.TextInputLayout-->
-<!--             android:id="@+id/email_profile"-->
-<!--             android:layout_width="match_parent"-->
-<!--             android:layout_height="wrap_content">-->
-
-<!--             <com.google.android.material.textfield.TextInputEditText-->
-<!--                 android:layout_width="match_parent"-->
-<!--                 android:layout_height="wrap_content"-->
-<!--                 android:hint="email"/>-->
-<!--         </com.google.android.material.textfield.TextInputLayout>-->
-
-
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/phone_no_profile"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="phone number"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -89,17 +72,18 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="password"/>
+                android:hint="Password"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
     <Button
         android:id="@+id/update_btn"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorSplash"
-        android:onClick="update"
+        android:layout_gravity="center"
+        android:background="#000"
+        android:textColor="#fff"
         android:text="Update"
         android:textSize="18dp" />
 
