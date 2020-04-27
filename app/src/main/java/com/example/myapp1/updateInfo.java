@@ -45,7 +45,8 @@ public class updateInfo extends AppCompatActivity {
             String vegetable_name = vegetablename.getText().toString().trim();
 //            Toast.makeText(getApplicationContext(),vegetable_name,Toast.LENGTH_LONG).show();
             reference.child(vegetable_name).setValue(vegetableWeight.getEditText().getText().toString().trim());
-            Log.i("myMessage", reference.child(vegetable_name).toString());
+//            Log.i("myMessage", reference.child(vegetable_name).toString());
+            finish();
 
         });
 

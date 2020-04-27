@@ -12,12 +12,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,17 +32,20 @@ public class viewInfo extends AppCompatActivity {
 
     DatabaseReference reference;
     ListView list;
+    FloatingActionButton add;
 //    TextView text;
 //    Button click;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);  //removes status bar
+
         setContentView(R.layout.activity_view_info);
 
 //        text = findViewById(R.id.dummytext);
 //        click = findViewById(R.id.click);
         list = (ListView) findViewById(R.id.listView);
-
+        add=findViewById(R.id.floatingActionButton);
         Intent intent = getIntent();
         final String username = intent.getStringExtra("username");
         reference = FirebaseDatabase.getInstance().getReference("users").child(username).child("Master");
@@ -73,6 +78,12 @@ public class viewInfo extends AppCompatActivity {
 //            }
 //        });
 
+        add.setOnClickListener((View V)->{
+
+                Intent intent1 = new Intent(viewInfo.this, updateInfo.class);
+                intent1.putExtra("username", username);
+                startActivity(intent1);
+        });
     }
 
     class MyAdapter extends ArrayAdapter<String> {

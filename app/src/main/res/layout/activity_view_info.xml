@@ -9,12 +9,25 @@
     android:orientation="vertical"
     >
 
-    <ListView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"/>
+        android:layout_height="wrap_content">
 
-<!--    <TextView-->
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+    <include
+        layout="@layout/edit_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom" />
+
+    </FrameLayout>
+    <!--    <TextView-->
 <!--        android:id="@+id/dummytext"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
