@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class updateInfo extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class updateInfo extends AppCompatActivity{
 
     DatabaseReference reference;
     TextInputLayout vegetableWeight;
@@ -47,78 +47,68 @@ public class updateInfo extends AppCompatActivity implements AdapterView.OnItemS
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
 
-        List<String> veg_list=new ArrayList<>();
-        veg_list.add("abc");
-        veg_list.add("pqr");
-        veg_list.add("xyz");
+        reference = FirebaseDatabase.getInstance().getReference("users").child(username).child("Master");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> veg_list=new ArrayList<>();
+                veg_list.add("Select Vegetable!");
+                for(DataSnapshot s:dataSnapshot.getChildren()) {
+                    String key=s.getKey();
+                    String value= Objects.requireNonNull(dataSnapshot.child(Objects.requireNonNull(key)).getValue()).toString().trim();
+                    if(value.equals("0"))
+                        veg_list.add(key);
+                }
 
-//        reference = FirebaseDatabase.getInstance().getReference("users").child(username).child("Master");
-//        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for(DataSnapshot s:dataSnapshot.getChildren()) {
-//                    String key=s.getKey();
-//                    String value= Objects.requireNonNull(dataSnapshot.child(Objects.requireNonNull(key)).getValue()).toString().trim();
-//                    if(value.equals("0"))
-//                        veg_list.add(key);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(updateInfo.this, android.R.layout.simple_spinner_item, veg_list);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(adapter);
 
-        String str="";
-        for(String k:veg_list)
-            str=str+" "+k;
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        //String text=parent.getItemAtPosition(position).toString();
+                        //Toast.makeText(parent.getContext(),text,Toast.LENGTH_SHORT).show();
+                    }
 
-        Toast.makeText(updateInfo.this,str,Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, veg_list);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spinner.setPrompt("Select Vegetable!");
-        spinner.setAdapter(adapter);
+                    }
+                });
 
-        spinner.setOnItemSelectedListener(this);
+                back.setOnClickListener((View v)->{
+                    Intent intent2 = new Intent( updateInfo.this,viewInfo.class);
+                    intent2.putExtra("username", username);
+                    startActivity(intent2);
+                    finish();
+                });
 
-        submit.setOnClickListener((View V)->{
-            if(!validateVegetableWeight() ) //!validateSpinner() ||
-                return;
+                submit.setOnClickListener((View V)->{
+                    if(!validateSpinner() || !validateVegetableWeight())
+                        return;
 
-            //String vegetable_name = spinner.getSelectedItem().toString().trim();
-            Toast.makeText(updateInfo.this,"vegetable_name",Toast.LENGTH_LONG).show();
-//            String vegetable_name = vegetableName.getEditText().getText().toString().trim();
-           // reference.child(vegetable_name).setValue(vegetableWeight.getEditText().getText().toString().trim());
+                    String vegetable_name = spinner.getSelectedItem().toString().trim();
+                    Toast.makeText(updateInfo.this,vegetable_name,Toast.LENGTH_LONG).show();
+                    reference.child(vegetable_name).setValue(vegetableWeight.getEditText().getText().toString().trim());
 
-            Intent intent1 = new Intent( updateInfo.this,viewInfo.class);
-            //intent1.putExtra("username", username);
-            startActivity(intent1);
-            finish();
+                    Intent intent1 = new Intent( updateInfo.this,viewInfo.class);
+                    intent1.putExtra("username", username);
+                    startActivity(intent1);
+                    finish();
 
-        });
+                });
 
-        back.setOnClickListener((View v)->{
-            Intent intent1 = new Intent( updateInfo.this,viewInfo.class);
-            startActivity(intent1);
-            finish();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
 
     }
 
-
-//    private Boolean validateVegetableName() {
-//        String val = vegetableName.getEditText().getText().toString();
-//        if (val.isEmpty()) {
-//            vegetableName.setError("Field cannot be empty");
-//            return false;
-//        } else {
-//            vegetableName.setError(null);
-//            vegetableName.setErrorEnabled(false);
-//            return true;
-//        }
-//    }
 
     private Boolean validateVegetableWeight() {
         String val = vegetableWeight.getEditText().getText().toString();
@@ -144,14 +134,4 @@ public class updateInfo extends AppCompatActivity implements AdapterView.OnItemS
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text=parent.getItemAtPosition(position).toString();
-        //Toast.makeText(parent.getContext(),text,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }
