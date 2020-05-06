@@ -22,12 +22,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class login extends AppCompatActivity {
 
     Button callSignUp,callLoginUser,callForgotPass;
     ImageView logo;
     TextView title;
     TextInputLayout username,password;
+    DatabaseReference ref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +71,7 @@ public class login extends AppCompatActivity {
         callLoginUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 loginUser(v);
 
             }
@@ -99,6 +104,7 @@ public class login extends AppCompatActivity {
         }
     }
 
+
     public void loginUser(View view) {
         //Validate Login Info
         if (!validateUsername() | !validatePassword())
@@ -129,20 +135,24 @@ public class login extends AppCompatActivity {
                         username.setError(null);
                         username.setErrorEnabled(false);
 
-                        String nameFromDB = dataSnapshot.child(userEnteredUsername).child("name").getValue(String.class);
                         String usernameFromDB = dataSnapshot.child(userEnteredUsername).child("username").getValue(String.class);
-                        String phoneNoFromDB = dataSnapshot.child(userEnteredUsername).child("phone").getValue(String.class);
-                        String emailFromDB = dataSnapshot.child(userEnteredUsername).child("email").getValue(String.class);
 
-                        Intent intent = new Intent(getApplicationContext(), viewInfo.class);
-
-//                        intent.putExtra("name", nameFromDB);
-                        intent.putExtra("username", usernameFromDB);
-//                        intent.putExtra("email", emailFromDB);
-//                        intent.putExtra("phone", phoneNoFromDB);
-//                        intent.putExtra("password", passwordFromDB);
-                        startActivity(intent);
-                        finish();
+                        String user_type=dataSnapshot.child(userEnteredUsername).child("type").getValue(String.class);
+                        Toast.makeText(login.this,"User Type: "+user_type,Toast.LENGTH_LONG).show();
+                        if(user_type.equals("Customer"))
+                        {
+                            Intent intent = new Intent(getApplicationContext(), viewInfo.class);
+                            intent.putExtra("username", usernameFromDB);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else
+                        {
+                            Intent intent = new Intent(getApplicationContext(), viewInfoVendor.class);
+                            intent.putExtra("username", usernameFromDB);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
                     else {
                         //progressBar.setVisibility(View.GONE);

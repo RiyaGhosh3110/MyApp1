@@ -3,11 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:backgroundTint="#9C27B0"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".updateInfo">
-
+    tools:context=".updateInfoVendor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,6 +30,7 @@
 
     </LinearLayout>
 
+
     <Spinner
         android:id="@+id/sel_veg"
         style="@android:style/Widget.Material.Spinner"
@@ -40,18 +39,6 @@
         android:layout_gravity="center"
         android:backgroundTint="#9C27B0"
         android:spinnerMode="dropdown" />
-
-    <!--    <com.google.android.material.textfield.TextInputLayout-->
-    <!--        android:id="@+id/veg_name"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content">-->
-
-    <!--        <com.google.android.material.textfield.TextInputEditText-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:gravity="center"-->
-    <!--            android:hint="Enter Vegetable"/>-->
-    <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/veg_weight"
@@ -63,6 +50,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:hint="Enter Weight" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/veg_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="244dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="Enter Price" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -96,6 +95,5 @@
             android:textColor="#fff" />
 
     </LinearLayout>
-
 
 </LinearLayout>

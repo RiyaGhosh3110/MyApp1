@@ -58,7 +58,7 @@ public class viewInfo extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String username = intent.getStringExtra("username");
-        welcome.setText("Hello "+ username+"\nWelcome Back!");
+        welcome.setText("Hello "+ username+"\nWelcome back (customer)!");
         reference = FirebaseDatabase.getInstance().getReference("users").child(username).child("Master");
         reference.addValueEventListener(new ValueEventListener() {
             ArrayList<String> keys = new ArrayList<String>();

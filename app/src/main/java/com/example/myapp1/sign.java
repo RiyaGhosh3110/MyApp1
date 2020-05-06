@@ -246,14 +246,20 @@ public class sign extends AppCompatActivity {
                     String email=regEmail.getEditText().getText().toString();
                     String phone=regPhoneNo.getEditText().getText().toString();
                     String password=regPassword.getEditText().getText().toString();
-                    String type=radioButton.getText().toString();
+                    String type=radioButton.getText().toString().equals("Customer")?"Customer":"Vendor";
 
                     UserHelperClass helperClass=new UserHelperClass(name,username,email,phone,password,type);
                     reference.child(username).setValue(helperClass);
 
-                    Master m=new Master();
-                    reference.child(username).child("Master").setValue(m);
-
+                    if(type.equals("Customer")) {
+                        Master m = new Master();
+                        reference.child(username).child("Master").setValue(m);
+                    }
+                    else
+                    {
+                        Vendor v = new Vendor();
+                        reference.child(username).child("Vendor").setValue(v);
+                    }
                     Toast.makeText(getApplicationContext(),"User Successfully Registered", Toast.LENGTH_LONG).show();
 
                     Intent intent=new Intent(sign.this,login.class);
