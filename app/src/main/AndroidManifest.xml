@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".updateInfo"></activity>
+        <activity android:name=".popup_viewInfo"></activity>
+        <activity android:name=".updateInfo" />
         <activity android:name=".viewInfo" />
         <activity android:name=".userProfile" />
         <activity android:name=".sign" />
@@ -21,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

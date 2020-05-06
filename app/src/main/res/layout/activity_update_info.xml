@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".updateInfo"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:backgroundTint="#9C27B0"
+    android:orientation="vertical"
+    tools:context=".updateInfo">
 
 
     <LinearLayout
@@ -18,29 +19,39 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/veg1"
-            android:transitionName="logo_image"/>
+            android:transitionName="logo_image" />
+
         <TextView
             android:id="@+id/fullname_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Update Vegetable"
             android:paddingBottom="10dp"
-            android:textSize="24dp"/>
+            android:text="Update Vegetable"
+            android:textSize="24dp" />
 
 
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/veg_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <Spinner
+        android:id="@+id/sel_veg"
+        style="@android:style/Widget.Material.Spinner"
+        android:layout_width="126dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#9C27B0"
+        android:spinnerMode="dropdown" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="Enter Vegetable"/>
-    </com.google.android.material.textfield.TextInputLayout>
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/veg_name"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content">-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:gravity="center"-->
+    <!--            android:hint="Enter Vegetable"/>-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/veg_weight"
@@ -48,17 +59,17 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+            android:layout_width="126dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="Enter Weight"/>
+            android:layout_gravity="center"
+            android:hint="Enter Weight" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingTop="70dp">
 
         <Button
@@ -78,14 +89,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
             android:background="#000"
             android:text="Submit"
             android:textColor="#fff" />
 
     </LinearLayout>
-
 
 
 </LinearLayout>

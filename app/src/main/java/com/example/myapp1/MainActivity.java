@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private static int SPLASH_SCREEN=5000;
 
     //Variables
-    //Animation topanim,bottomanim;
+    Animation topanim,bottomanim;
     ImageView logo;
     TextView title;
 
@@ -30,15 +30,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Animation
-       // topanim= AnimationUtils.loadAnimation(this,R.anim.top_animation);
-        //bottomanim= AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
+        topanim= AnimationUtils.loadAnimation(this,R.anim.top_animation);
+        bottomanim= AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
 
         //Hooks
         logo=findViewById(R.id.icon);
         title=findViewById(R.id.title);
 
-        //logo.setAnimation(topanim);
-        //title.setAnimation(bottomanim);
+        logo.setAnimation(topanim);
+        title.setAnimation(bottomanim);
 
 //        new Handler().postDelayed(new Runnable() {
 //            @Override
@@ -56,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
-//                Pair[] pairs= new Pair[2];
-//                pairs[0]=new Pair<View,String>(logo,"logo_image");
-//                pairs[1]=new Pair<View,String>(title,"logo_text");
-//                ActivityOptions options=ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
-//                startActivity(intent,options.toBundle());
+                Pair[] pairs= new Pair[2];
+                pairs[0]=new Pair<View,String>(logo,"logo_image");
+                pairs[1]=new Pair<View,String>(title,"logo_text");
+                ActivityOptions options=ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
+                startActivity(intent,options.toBundle());
             }
         },SPLASH_SCREEN);
     }

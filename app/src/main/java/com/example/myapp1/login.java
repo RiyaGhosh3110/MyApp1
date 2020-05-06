@@ -60,8 +60,7 @@ public class login extends AppCompatActivity {
 //                pairs[1]=new Pair<View,String>(title,"logo_text");
 //                ActivityOptions options=ActivityOptions.makeSceneTransitionAnimation(login.this,pairs);
                 startActivity(intent);
-
-
+                finish();
             }
         });
 

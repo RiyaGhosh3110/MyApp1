@@ -1,17 +1,32 @@
 package com.example.myapp1;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class UserHelperClass {
-    String name,username,email, phone,password;
+    String name,username,email, phone,password,type;
+
+
 
     public UserHelperClass() {
     }
 
-    public UserHelperClass(String name, String username, String email, String phone, String password) {
+    public UserHelperClass(String name, String username, String email, String phone, String password,String type) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.type=type;
+
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -54,3 +69,5 @@ public class UserHelperClass {
         this.password = password;
     }
 }
+
+

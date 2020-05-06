@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,8 @@ public class sign extends AppCompatActivity {
 
     TextInputLayout regName,regUsername, regEmail, regPhoneNo, regPassword;
     Button regBtn,regToLoginBtn;
+    RadioGroup radioGroup;
+    RadioButton radioButton;
 
     FirebaseDatabase rootNode;
     DatabaseReference reference;
@@ -46,29 +51,17 @@ public class sign extends AppCompatActivity {
         regPassword=findViewById(R.id.reg_password);
         regBtn=findViewById(R.id.reg_btn);
         regToLoginBtn=findViewById(R.id.reg_login_btn);
+        radioGroup=findViewById(R.id.radioGroup);
+
+
+
+
 
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 rootNode=FirebaseDatabase.getInstance();
                 reference=rootNode.getReference("users");
-
-//                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
-//                ref.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        String value=regUsername.getEditText().getText().toString();
-//                        if (dataSnapshot.child(value).exists()) {
-//                            Toast.makeText(sign.this,"USER EXISTS",Toast.LENGTH_LONG).show();
-//                            regUsername.setError("User already exists!");
-//                            return;
-//                        }
-//                    }
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
 
                 registerUser(v);
             }
@@ -244,15 +237,28 @@ public class sign extends AppCompatActivity {
                         return;
                     }
 
+                    //radiobutton
+                    int radioId = radioGroup.getCheckedRadioButtonId();
+                    radioButton = findViewById(radioId);
+                    Toast.makeText(sign.this, "Selected User as: " + radioButton.getText(),Toast.LENGTH_SHORT).show();
+
                     String name=regName.getEditText().getText().toString();
                     String email=regEmail.getEditText().getText().toString();
                     String phone=regPhoneNo.getEditText().getText().toString();
                     String password=regPassword.getEditText().getText().toString();
+                    String type=radioButton.getText().toString();
 
-                    UserHelperClass helperClass=new UserHelperClass(name,username,email,phone,password);
+                    UserHelperClass helperClass=new UserHelperClass(name,username,email,phone,password,type);
                     reference.child(username).setValue(helperClass);
 
+                    Master m=new Master();
+                    reference.child(username).child("Master").setValue(m);
+
                     Toast.makeText(getApplicationContext(),"User Successfully Registered", Toast.LENGTH_LONG).show();
+
+                    Intent intent=new Intent(sign.this,login.class);
+                    startActivity(intent);
+                    finish();
                 }
 
             }
@@ -265,4 +271,12 @@ public class sign extends AppCompatActivity {
 
     }
 
+    public void checkButton(View v) {
+        int radioId = radioGroup.getCheckedRadioButtonId();
+
+        radioButton = findViewById(radioId);
+
+        Toast.makeText(this, "Selected User as: " + radioButton.getText(),
+                Toast.LENGTH_SHORT).show();
+    }
 }

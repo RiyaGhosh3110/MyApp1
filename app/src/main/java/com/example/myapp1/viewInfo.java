@@ -5,19 +5,25 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +41,8 @@ public class viewInfo extends AppCompatActivity {
     FloatingActionButton add;
     Button logout;
     TextView welcome;
+    Dialog myDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +65,37 @@ public class viewInfo extends AppCompatActivity {
             ArrayList<String> values = new ArrayList<>();
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot subSnap : dataSnapshot.getChildren())
-                    keys.add(subSnap.getKey());
-                for(String key : keys){
-                    String value = dataSnapshot.child(key).getValue().toString();
-                    values.add(value);
+//                for (DataSnapshot subSnap : dataSnapshot.getChildren())
+//                    keys.add(subSnap.getKey());
+//                for (String key : keys) {
+//                    String value = dataSnapshot.child(key).getValue().toString();
+//                    values.add(value);
+//                }
+
+                for(DataSnapshot subSnap: dataSnapshot.getChildren()) {
+                       String value=dataSnapshot.child(subSnap.getKey()).getValue().toString();
+                       if(!value.equals("0"))
+                        {
+                            keys.add(subSnap.getKey());
+                            values.add((String) subSnap.getValue());
+                        }
                 }
                 MyAdapter adapter = new MyAdapter(viewInfo.this, keys, values);
                 list.setAdapter(adapter);
+
+                list.setOnItemClickListener((parent, view, position, id) -> {
+                if(position==0) {
+
+
+                   String selectedItem = (String) parent.getItemAtPosition(position);
+//                       Toast.makeText(viewInfo.this,selectedItem,Toast.LENGTH_LONG).show();
+                    Intent intentToDetay = new Intent(viewInfo.this, popup_viewInfo.class);
+                    intentToDetay.putExtra("vegetable", selectedItem);
+                    startActivity(intentToDetay);
+
+                    //vegetableInformationPopup();
+                    }
+                });
             }
 
             @Override
@@ -120,6 +151,14 @@ public class viewInfo extends AppCompatActivity {
             return row;
         }
     }
+
+//    public void vegetableInformationPopup() {
+//
+//        final Dialog dialog= new Dialog(getBaseContext());
+//        dialog.setContentView(R.layout.activity_abc);
+//        dialog.show();
+//
+//    }
 }
 
 

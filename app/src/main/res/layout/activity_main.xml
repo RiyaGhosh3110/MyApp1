@@ -17,12 +17,14 @@
         android:layout_marginTop="106dp"
         android:layout_marginEnd="79dp"
         android:layout_marginBottom="324dp"
-        android:transitionName="logo_image"
         android:src="@drawable/veg1"
+        android:transitionName="logo_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.732" />
 
     <TextView
         android:id="@+id/title"
@@ -32,15 +34,15 @@
         android:layout_marginTop="156dp"
         android:layout_marginEnd="118dp"
         android:layout_marginBottom="127dp"
-        android:fontFamily="serif"
-        android:text="Fridge Filler"
-        android:transitionName="logo_text"
+        android:fontFamily="@font/abril_fatface"
+        android:text="FRIDGE FILLER"
         android:textSize="30sp"
+        android:transitionName="logo_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon" />
+        app:layout_constraintTop_toBottomOf="@+id/icon"
+        app:layout_constraintVertical_bias="0.529" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
