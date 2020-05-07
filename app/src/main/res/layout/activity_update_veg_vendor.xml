@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".updateInfoVendor">
+    tools:context=".updateVegVendor">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,21 +26,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="Insert Vegetable"
+            android:text="Update Vegetable"
             android:textSize="24dp" />
 
 
     </LinearLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/veg_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Spinner
-        android:id="@+id/sel_veg"
-        style="@android:style/Widget.Material.Spinner"
-        android:layout_width="244dp"
-        android:layout_height="51dp"
-        android:layout_gravity="center"
-        android:backgroundTint="#9C27B0"
-        android:spinnerMode="dropdown" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="244dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="Enter Vegetable" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/veg_weight"
@@ -51,6 +55,7 @@
             android:layout_gravity="center"
             android:hint="Enter Weight" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/veg_price"

@@ -41,7 +41,10 @@ public class viewInfo extends AppCompatActivity {
     FloatingActionButton add;
     Button logout;
     TextView welcome;
+
     Dialog myDialog;
+    Button delete,update;
+    FloatingActionButton close;
 
 
     @Override
@@ -84,17 +87,52 @@ public class viewInfo extends AppCompatActivity {
                 list.setAdapter(adapter);
 
                 list.setOnItemClickListener((parent, view, position, id) -> {
-                if(position==0) {
+
+                    myDialog =new Dialog(viewInfo.this);
+                    myDialog.setContentView(R.layout.activity_popup_view_info);
+                    myDialog.setTitle("My Custom Dialog");
+
+                    delete=(Button)myDialog.findViewById(R.id.delete);
+                    update=(Button)myDialog.findViewById(R.id.update);
+                    close=(FloatingActionButton)myDialog.findViewById(R.id.close);
+
+                    delete.setEnabled(true);
+                    update.setEnabled(true);
+                    close.setEnabled(true);
+
+                    delete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String vegName = (String) parent.getItemAtPosition(position);
+                            reference.child(vegName).setValue("0");
+                            finish();
+                            startActivity(getIntent());
+                            //Toast.makeText(viewInfo.this,"Delete",Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                    update.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String selectedItem = (String) parent.getItemAtPosition(position);
+                            Intent in = new Intent(viewInfo.this, updateVeg.class);
+                            in.putExtra("vegetable", selectedItem);
+                            in.putExtra("username",username);
+                            startActivity(in);
+                            finish();
+                        }
+                    });
+
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            myDialog.cancel();
+                        }
+                    });
 
 
-                   String selectedItem = (String) parent.getItemAtPosition(position);
-//                       Toast.makeText(viewInfo.this,selectedItem,Toast.LENGTH_LONG).show();
-                    Intent intentToDetay = new Intent(viewInfo.this, popup_viewInfo.class);
-                    intentToDetay.putExtra("vegetable", selectedItem);
-                    startActivity(intentToDetay);
+                    myDialog.show();
 
-                    //vegetableInformationPopup();
-                    }
                 });
             }
 
@@ -152,13 +190,10 @@ public class viewInfo extends AppCompatActivity {
         }
     }
 
-//    public void vegetableInformationPopup() {
-//
-//        final Dialog dialog= new Dialog(getBaseContext());
-//        dialog.setContentView(R.layout.activity_abc);
-//        dialog.show();
-//
-//    }
+    public void vegetableInformationPopup() {
+
+
+    }
 }
 
 

@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".updateInfoVendor"></activity>
+        <activity android:name=".updateVegVendor"></activity>
+        <activity android:name=".updateVeg" />
+        <activity android:name=".updateInfoVendor" />
         <activity android:name=".viewInfoVendor" />
         <activity android:name=".popup_viewInfo" />
         <activity android:name=".updateInfo" />
