@@ -78,6 +78,7 @@ public class updateVegVendor extends AppCompatActivity {
         }
         else {
             upVeg.setError(null);
+            upVeg.setErrorEnabled(false);
             return true;
         }
     }
@@ -94,6 +95,7 @@ public class updateVegVendor extends AppCompatActivity {
         }
         else {
             upPrice.setError(null);
+            upPrice.setErrorEnabled(false);
             return true;
         }
     }

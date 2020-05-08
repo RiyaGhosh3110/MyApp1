@@ -180,8 +180,8 @@ class MyAdapter extends ArrayAdapter<String> {
         TextView myPrice = row_vendor.findViewById(R.id.textView3);
         // now set our resources on views
         myVegetableName.setText(rVegetableName.get(position));
-        myWeight.setText("Weight: "+rWeight.get(position));
-        myPrice.setText("Price: "+rPrice.get(position));
+        myWeight.setText("Weight: "+rWeight.get(position)+" kg");
+        myPrice.setText("Price: Rs "+rPrice.get(position));
 
 
         return row_vendor;

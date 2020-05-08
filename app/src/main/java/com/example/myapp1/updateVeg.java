@@ -80,6 +80,7 @@ public class updateVeg extends AppCompatActivity {
         }
         else {
             upVeg.setError(null);
+            upVeg.setErrorEnabled(false);
             return true;
         }
     }

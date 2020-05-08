@@ -1,17 +1,33 @@
 package com.example.myapp1;
 
+
 public class Vendor {
-    Vegetable bittergourd, onion,potato;
+    Vegetable bittergourd,onion,potato,tomato,pumpkin,pepper,ginger,garlic,cabbage;
 
     public Vendor() {
         this.bittergourd = new Vegetable();
         this.onion = new Vegetable();
         this.potato = new Vegetable();
+        this.tomato = new Vegetable();
+        this.pumpkin = new Vegetable();
+        this.pepper = new Vegetable();
+        this.ginger = new Vegetable();
+        this.garlic = new Vegetable();
+        this.cabbage = new Vegetable();
     }
-    public Vendor(Vegetable bittergourd, Vegetable onion, Vegetable potato) {
+
+    public Vendor(Vegetable bittergourd, Vegetable onion, Vegetable potato, Vegetable tomato,
+                  Vegetable pumpkin, Vegetable pepper, Vegetable ginger,
+                  Vegetable garlic, Vegetable cabbage) {
         this.bittergourd = bittergourd;
         this.onion = onion;
         this.potato = potato;
+        this.tomato = tomato;
+        this.pumpkin = pumpkin;
+        this.pepper = pepper;
+        this.ginger = ginger;
+        this.garlic = garlic;
+        this.cabbage = cabbage;
     }
 
     public Vegetable getBittergourd() {
@@ -37,8 +53,55 @@ public class Vendor {
     public void setPotato(Vegetable potato) {
         this.potato = potato;
     }
-}
 
+    public Vegetable getTomato() {
+        return tomato;
+    }
+
+    public void setTomato(Vegetable tomato) {
+        this.tomato = tomato;
+    }
+
+    public Vegetable getPumpkin() {
+        return pumpkin;
+    }
+
+    public void setPumpkin(Vegetable pumpkin) {
+        this.pumpkin = pumpkin;
+    }
+
+    public Vegetable getPepper() {
+        return pepper;
+    }
+
+    public void setPepper(Vegetable pepper) {
+        this.pepper = pepper;
+    }
+
+    public Vegetable getGinger() {
+        return ginger;
+    }
+
+    public void setGinger(Vegetable ginger) {
+        this.ginger = ginger;
+    }
+
+    public Vegetable getGarlic() {
+        return garlic;
+    }
+
+    public void setGarlic(Vegetable garlic) {
+        this.garlic = garlic;
+    }
+
+    public Vegetable getCabbage() {
+        return cabbage;
+    }
+
+    public void setCabbage(Vegetable cabbage) {
+        this.cabbage = cabbage;
+    }
+}
 
 class Vegetable{
     String weight,price;

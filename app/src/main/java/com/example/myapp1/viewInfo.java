@@ -183,7 +183,7 @@ public class viewInfo extends AppCompatActivity {
 
             // now set our resources on views
             myTitle.setText(rTitle.get(position));
-            myDescription.setText(rDescription.get(position));
+            myDescription.setText("Weight: "+rDescription.get(position)+" kg");
 
 
             return row;

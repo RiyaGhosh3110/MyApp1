@@ -254,6 +254,9 @@ public class sign extends AppCompatActivity {
                     if(type.equals("Customer")) {
                         Master m = new Master();
                         reference.child(username).child("Master").setValue(m);
+
+                        Master t = new Master();
+                        reference.child(username).child("Threshold").setValue(t);
                     }
                     else
                     {
